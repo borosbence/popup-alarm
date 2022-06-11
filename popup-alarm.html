@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Popup window</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Popup window</h1>
+    <div id="time"></div>
+    <div id="alert"></div>
+	
+    <script>
+		// Óra kijelzése
+		function addZero(i) {
+			if (i < 10) {
+				i = "0" + i;
+			}
+			return i;
+		}
+		function updateClock() {
+			var now = new Date();
+			var time = addZero(now.getHours()) + ':' + addZero(now.getMinutes()) + ":" + addZero(now.getSeconds());
+			var date = addZero(now.getUTCFullYear()) + '.' + (addZero(now.getUTCMonth() + 1)) + "." + addZero(now.getUTCDate());
+
+			document.getElementById('time').innerHTML = [date, time].join(' / ');
+
+			setTimeout(updateClock, 1000);
+		}
+		updateClock();
+
+		// Értesítés
+		function alertWindow() {
+			var url = "http://google.com";
+			var param3 = "location=0,width=300,height=200";
+			var second = 00;
+			var now = new Date();
+
+			if (now.getSeconds() == second) {
+
+				var newWin = window.open("", "winName", param3);
+
+				if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+					$("#alert").text("Please allow the popup window in your browser.");
+				}
+			}
+			<!-- console.log(now.getSeconds()); -->
+			setTimeout(alertWindow, 1000);
+		}
+		alertWindow();
+
+    </script>
+</body>
+</html>
